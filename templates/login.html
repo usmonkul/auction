@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <section class="register-section">
+        <h1>Login to your account</h1>
+        <form method="POST">
+            <label class="register-label" for="username">Username</label>
+            <input class="register-input" type="text" name="username" id="username" required>
+            <label class="register-label" for="password">Password</label>
+            <input class="register-input" type="password" name="password" id="password" required>
+            <button class="btn" type="submit">Login</button>
+        </form>
+        <p>{{ error }}</p>
+        <a href="/register">Login</a>
+    </section>
+</body>
+</html>
