@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahsulotlar</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <header>
+        <a class="logo" href="/">AuksionGo</a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/products">Auksion</a></li>
+                <li><a href="/kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+
+        {% if user %}
+        <div class="buttons">
+            <p class="profile-name">{{ user[1].capitalize() }}</p>
+            <a class="btn logout-btn" href="/logout">Logout</a>
+        </div>
+        {% else %}
+            <div class="buttons">
+                <a href="/login" class="btn login-btn">Login</a>
+                <a href="/register" class="btn register-btn">Register</a>
+            </div>
+        {% endif %}
+    </header>
+    <main class="products_container">
+        <h1 class="products_heading">Auksiyondagi mahsulotlar</h1>
+        <ul class="products">
+            {% for product in products %}
+                <li class="product_item">
+                    <a class="item_link" href="#">
+                        <img class="product_image" src="" alt="Product image">
+                        <h2 class="product_name">Nomi: {{ product[1] }}</h2>
+                        <div class="prices">
+                            <p class="current_price">Hozirgi narx: {{ product[3] }}</p>
+                            <p class="initial_price">Dastlabki narx: {{ product[4] }}</p>
+                        </div>
+                        <p class="desctioption"> Tarifi: {{ product[2] }}</p>
+                        <p class="date">Sana: {{ product[5] }}</p>
+                        <a class="btn" href="/product/{{ product[0] }}">Batafsil</a>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 AuctionGo</p>
+    </footer>
+    
+</body>
+</html>

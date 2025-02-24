@@ -7,16 +7,40 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
+    <header>
+        <a class="logo" href="/">AuksionGo</a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/products">Auksion</a></li>
+                <li><a href="/kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+
+        {% if user %}
+        <div class="buttons">
+            <p class="profile-name">{{ user[1].capitalize() }}</p>
+            <a class="btn logout-btn" href="/logout">Logout</a>
+        </div>
+        {% else %}
+            <div class="buttons">
+                <a href="/login" class="btn login-btn">Login</a>
+                <a href="/register" class="btn register-btn">Register</a>
+            </div>
+        {% endif %}
+    </header>
     <section class="register-section">
-        <h1>Register</h1>
+        <h1>Ro'yxatdan o'tish</h1>
         <form method="POST">
             <label class="register-label" for="username">Username</label>
             <input class="register-input" type="text" name="username" id="username" required>
-            <label class="register-label" for="password">Password</label>
+            <label class="register-label" for="password">Parol</label>
             <input class="register-input" type="password" name="password" id="password" required>
-            <button class="btn" type="submit">Register</button>
+            <button class="btn" type="submit">Ro'yxatdan o'tish</button>
         </form>
-        <a href="/login">Login</a>
+        <p class="error">{{ error }}</p>
+        <a href="/login">Kirish</a>
+
     </section>
 </body>
 </html>

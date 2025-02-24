@@ -3,19 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add product</title>
+    <title>Mahsulot qo'shish</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
+    <header>
+        <a class="logo" href="/">AuksionGo</a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/products">Auksion</a></li>
+                <li><a href="/kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+
+        {% if user %}
+        <div class="buttons">
+            <p class="profile-name">{{ user[1].capitalize() }}</p>
+            <a class="btn logout-btn" href="/logout">Logout</a>
+        </div>
+        {% else %}
+            <div class="buttons">
+                <a href="/login" class="btn login-btn">Login</a>
+                <a href="/register" class="btn register-btn">Register</a>
+            </div>
+        {% endif %}
+    </header>
     <main>
-        <h1>Add product</h1>
-        <form method="POST">
-            <label for="name">Name</label>
+        <h1>Mahsulot qo'shish</h1>
+        <form class="productForm" method="POST">
+            <label for="name">Nomi</label>
             <input type="text" name="name" id="name" required>
-            <label for="price">Price</label>
-            <input type="number" name="price" id="price" required>
-            <label for="description">Description</label>
+            <label for="initial_price">Boshlang'ich narx</label>
+            <input type="number" name="initial_price" id="initial_price" required>
+            <label for="current_price">Hozirgi narx</label>
+            <input type="number" name="current_price" id="current_price" required>
+            <label for="selling_date">Sotish sanasi</label>
+            <input type="date" name="selling_date" id="selling_date" required>
+            <label for="description">Tavsivi</label>
             <textarea name="description" id="description" required></textarea>
-            <button type="submit">Add</button>
+            <button class="btn" type="submit">Add</button>
         </form>
         <p>{{ error }}</p>
     </main>
