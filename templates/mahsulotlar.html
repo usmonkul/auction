@@ -34,17 +34,18 @@
         <ul class="products">
             {% for product in products %}
                 <li class="product_item">
-                    <a class="item_link" href="#">
-                        <img class="product_image" src="" alt="Product image">
+                        <img class="product_image" src="../static/images/80387978.cms" alt="Product image">
                         <h2 class="product_name">Nomi: {{ product[1] }}</h2>
                         <div class="prices">
-                            <p class="current_price">Hozirgi narx: {{ product[3] }}</p>
-                            <p class="initial_price">Dastlabki narx: {{ product[4] }}</p>
+                            <p class="current_price">Hozirgi narx: {{ product[3] }} so'm</p>
+                            <p class="initial_price">Dastlabki narx: {{ product[4] }} so'm</p>
                         </div>
                         <p class="desctioption"> Tarifi: {{ product[2] }}</p>
-                        <p class="date">Sana: {{ product[5] }}</p>
-                        <a class="btn" href="/product/{{ product[0] }}">Batafsil</a>
-                    </a>
+                        <p class="date">Sotilish sanasi: {{ product[5] }}</p>
+                        <div class="flex-items">
+                            <a class="btn" href="/product/{{ product[0] }}">Batafsil</a>
+                            <a class="btn btn-green" href="/product/{{ product[0] }}">Taklif kiritish</a>
+                        </div>
                 </li>
             {% endfor %}
         </ul>

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, g
 from db import get_db, close_connection, create_tables
 import hashlib
 import sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
@@ -23,8 +24,32 @@ def products():
     cur.execute('SELECT * FROM mahsulotlar')
     products = cur.fetchall()
     cur.close()
+    if 'user' in session:
+        return render_template('mahsulotlar.html', products=products, user=session['user'])
+    else:
+        return render_template('mahsulotlar.html', products=products)
 
-    return render_template('mahsulotlar.html', products=products)
+@app.route('/product/<int:id>')
+def product(id):
+    db = get_db()
+    cur = db.cursor()
+    cur.execute('SELECT * FROM mahsulotlar WHERE id = ?', (id,))
+    product = cur.fetchone()
+
+    cur.execute('''
+        SELECT foydalanuvchilar.foydalanuvchi_nomi, takliflar.narx, takliflar.vaqt
+        FROM takliflar
+        JOIN foydalanuvchilar ON takliflar.foydalanuvchi_id = foydalanuvchilar.id
+        WHERE takliflar.mahsulot_id = ?
+    ''', (id,))
+    bids = cur.fetchall()
+
+    cur.close()
+
+    if 'user' in session:
+        return render_template('mahsulot.html', product=product, user=session['user'], bids=bids)
+    else:
+        return render_template('mahsulot.html', product=product, bids=bids)
     
 @app.route('/add_product', methods=['GET', 'POST'])
 def addProduct():
@@ -49,6 +74,37 @@ def addProduct():
         return redirect('/')
     else:
         return 'Method not allowed'
+    
+# id INTEGER PRIMARY KEY AUTOINCREMENT,
+# mahsulot_id INTEGER,
+# foydalanuvchi_id INTEGER,
+# narx REAL,
+# vaqt DATETIME,
+# FOREIGN KEY (mahsulot_id) REFERENCES mahsulotlar(id),
+# FOREIGN KEY (foydalanuvchi_id) REFERENCES foydalanuvchilar(id)
+@app.route("/product/<int:id>/taklif", methods=['POST', "GET"])
+def bid(id):
+    if 'user' not in session:
+        return redirect('/login')
+    if request.method == 'GET':
+        return render_template('taklif.html', id=id)
+    
+    if request.method == 'POST':
+        price = request.form.get('price')
+
+        db = get_db()
+        cur = db.cursor()
+        cur.execute('''
+            INSERT INTO takliflar (mahsulot_id, foydalanuvchi_id, narx, vaqt)
+            VALUES (?, ?, ?, ?)
+        ''', (id, session['user'][0], price, datetime.now()))
+        db.commit()
+        cur.close()
+
+        return redirect('/product/' + str(id))
+    else:
+        return 'Method not allowed'
+    
 
 
 @app.get('/login')
