@@ -139,6 +139,9 @@ def register():
     elif request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        fname = request.form.get('fname')
+        lname = request.form.get('lname')
+        email = request.form.get('email')
 
         # Hash the password using bcrypt
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
@@ -146,7 +149,7 @@ def register():
         db = get_db()
         cur = db.cursor()
         try:
-            cur.execute('''INSERT INTO foydalanuvchilar (foydalanuvchi_nomi, parol) VALUES (?, ?)''', (username, hashed_password))
+            cur.execute('''INSERT INTO foydalanuvchilar (foydalanuvchi_nomi, parol, fname, lname, email) VALUES (?, ?, ?, ?, ?)''', (username, hashed_password, fname, lname, email))
             db.commit()
             
             # Log the user in automatically after registration
@@ -161,6 +164,13 @@ def register():
             cur.close()
     else:
         return 'Method not allowed'
+    
+@app.route('/profile')
+def profile():
+    if 'user' in session:
+        return render_template('profile.html', user=session['user'])
+    else:
+        return redirect('/login')
 
 
 @app.route('/logout')

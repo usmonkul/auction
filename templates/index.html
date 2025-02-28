@@ -13,19 +13,21 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/products">Auksion</a></li>
+                <li><a href="/add_product">Mahsulot qo'shish</a></li>
                 <li><a href="/kontakt">Kontakt</a></li>
             </ul>
         </nav>
 
         {% if user %}
         <div class="buttons">
-            <p class="profile-name">{{ user[1].capitalize() }}</p>
-            <a class="btn logout-btn" href="/logout">Logout</a>
+            <!-- <p class="profile-name">{{ user[1].capitalize() }}</p> -->
+            <a href="/profile" class="btn">Hisob</a>
+            <a class="btn logout-btn" href="/logout">Chiqish</a>
         </div>
         {% else %}
             <div class="buttons">
-                <a href="/login" class="btn login-btn">Login</a>
-                <a href="/register" class="btn register-btn">Register</a>
+                <a href="/login" class="btn login-btn">Kirish</a>
+                <a href="/register" class="btn register-btn">Ro'yxatdan o'tish</a>
             </div>
         {% endif %}
     </header>

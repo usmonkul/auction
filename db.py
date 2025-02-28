@@ -26,7 +26,10 @@ def create_tables(app):
             CREATE TABLE IF NOT EXISTS foydalanuvchilar (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 foydalanuvchi_nomi TEXT UNIQUE,
-                parol TEXT
+                parol TEXT,
+                fname TEXT,
+                lname TEXT,
+                email TEXT UNIQUE
             )
         ''')
         # mahsulotlar jadvali

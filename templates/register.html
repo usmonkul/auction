@@ -32,10 +32,16 @@
     <section class="register-section">
         <h1>Ro'yxatdan o'tish</h1>
         <form method="POST">
-            <label class="register-label" for="username">Username</label>
-            <input class="register-input" type="text" name="username" id="username" required>
+            <label class="register-label" for="fname">Ism</label>
+            <input class="register-input" type="text" name="fname" id="fname" required placeholder="Ismingizni kiriting">
+            <label class="register-label" for="lname">Familya</label>
+            <input class="register-input" type="text" name="lname" id="lname" required placeholder="Familyangizni kiriting">
+            <label class="register-label" for="email">Elektron pochta</label>
+            <input class="register-input" type="email" name="email" id="email" required placeholder="Elektron pochtangizni kiriting">
+            <label class="register-label" for="username">Foydalanuvchi nomi</label>
+            <input class="register-input" type="text" name="username" id="username" required placeholder="Foydalanuvchi nomingizni kiriting">
             <label class="register-label" for="password">Parol</label>
-            <input class="register-input" type="password" name="password" id="password" required>
+            <input class="register-input" type="password" name="password" id="password" required placeholder="Parolingizni kiriting">
             <button class="btn" type="submit">Ro'yxatdan o'tish</button>
         </form>
         <p class="error">{{ error }}</p>
